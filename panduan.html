@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
+
 <body>
-    
+    <div>
+        <label id="whatBrowser">nihao</label>
+        <button onclick="writeBrowser()">什么？</button>
+    </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+
+
+
+        function myBrowser() {
+            var userAgent = navigator.uerAgent;
+            var isOpera = userAgent.indexOf("Opera") > -1
+            if (userAgent.indexOf("Opera") > -1) {
+                return "Opera"
+            }
+            if (userAgent.indexOf("Firefox") > -1) {
+                return "Firefox"
+            }
+            if (userAgent.indexOf("Chrome") > -1) {
+                return "Chrome"
+            }
+            if (userAgent.indexOf("Safari") > -1) {
+                return "Safari"
+            }
+            if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("rv:11") > -1 || window.ActiveXObject || 'ActiveXObject' in window) {
+                return "IE"
+            }
+        }
+
+
+        function writeBrowser() {
+            console.log(myBrowser())
+            $("#whatBrowser").html(myBrowser())
+        }
+
+
+    </script>
 </body>
+
 </html>

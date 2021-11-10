@@ -10,43 +10,91 @@
 
 
 <body>
-    <div>
+    <!-- <div>
         <label id="whatBrowser">nihao</label>
         <button onclick="writeBrowser()">什么？</button>
-    </div>
+    </div> -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
 
     <script type="text/javascript">
+        
+        function BrowserType() {
+            var userAgent = navigator.userAgent.toLowerCase(); //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("opr") > -1; //判断是否Opera浏览器
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("msie") > -1 && !isOpera; //判断是否IE浏览器
+            var isEdge = userAgent.indexOf("edg") > -1; //判断是否IE的Edge浏览器
+            var isFirefox = userAgent.indexOf("firefox") > -1; //判断是否Firefox浏览器
+            var isQQ = userAgent.indexOf("qqbrowser") > -1; //判断是否QQ浏览器
+            var isSafari = userAgent.indexOf("safari") > -1 && userAgent.indexOf("chrome") == -1; //判断是否Safari浏览器
+            var isChrome = userAgent.indexOf("chrome") > -1 && userAgent.indexOf("safari") > -1; //判断Chrome浏览器
 
 
 
-        function myBrowser() {
-            var userAgent = navigator.uerAgent;
-            var isOpera = userAgent.indexOf("Opera") > -1
-            if (userAgent.indexOf("Opera") > -1) {
-                return "Opera"
-            }
-            if (userAgent.indexOf("Firefox") > -1) {
-                return "Firefox"
-            }
-            if (userAgent.indexOf("Chrome") > -1) {
-                return "Chrome"
-            }
-            if (userAgent.indexOf("Safari") > -1) {
-                return "Safari"
-            }
-            if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("rv:11") > -1 || window.ActiveXObject || 'ActiveXObject' in window) {
-                return "IE"
-            }
-        }
+            if (isOpera) { return "Opera"; }
+            if (isIE) { return "IE"; }
+            if (isEdge) { return "Edge"; }
+            if (isFirefox) { return "Firefox"; }
+            if (isQQ) { return "QQBrowser"; }
+            if (isSafari) { return "Safari"; }
+            if (isChrome) { return "Chrome"; }
 
 
-        function writeBrowser() {
-            console.log(myBrowser())
-            $("#whatBrowser").html(myBrowser())
-        }
+        }//myBrowser() end
 
+
+
+        //     原来的函数写法：对于新版的ie11已经不支持了
+        //     if (isIE) {
+        //         var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+        //         reIE.test(userAgent);
+        //         var fIEVersion = parseFloat(RegExp["$1"]);
+        //         if (fIEVersion == 7) { return "IE7"; }
+        //         else if (fIEVersion == 8) { return "IE8"; }
+        //         else if (fIEVersion == 9) { return "IE9"; }
+        //         else if (fIEVersion == 10) { return "IE10"; }
+        //         else { return "0" }//IE版本过低
+        //     }//isIE end
+        // if (isEdge) { return "Edge"; }
+
+        // ie10及以上不支持ie浏览器的判断了，因为ie11已经不支持document.all了，下面是支持ie11的版本的，当然ie6 - 8也是支持的
+        // function isIE() { //ie?
+        //     if (!!window.ActiveXObject || "ActiveXObject" in window)
+        //         return true;
+        //     else
+        //         return false;
+        // }
+
+        // function isIE() {
+        //     if (window.navigator.userAgent.indexOf("MSIE") >= 1)
+        //         return true;
+        //     else
+        //         return false;
+        // }
+
+        //     IE6~IE10的浏览器特征明显，存在msie字符串，而IE11去掉了msie字符串，可以通过rv后面的版本号识别IE11，具体方法如下：
+        // function IETester(userAgent) {
+        //     undefined
+        //     var UA = userAgent || navigator.userAgent;
+        //     if (/msie/i.test(UA)) {
+        //         undefined
+        //         return UA.match(/msie (\d+\.\d+)/i)[1];
+        //     } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+        //         undefined
+        //         return UA.match(/rv:(\d+\.\d+)/)[1];
+        //     }
+        //     return false;
+        // }
+        // IETester();//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        // IETester('Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko');//传userAgent字符串，用来判断其他IE浏览器的版本,该示例返回11.0
+
+
+        console.log(BrowserType())
+        console.log("userAgent: " + navigator.userAgent);
+        console.log("显示器宽度（不含任务栏）: " + screen.availWidth);
+        console.log("显示器高度（不含任务栏）: " + screen.availHeight);
+        console.log("显示器宽度: " + screen.width);
+        console.log("显示器高度: " + screen.height);
 
     </script>
 </body>
